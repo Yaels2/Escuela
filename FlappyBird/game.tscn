@@ -1,0 +1,127 @@
+[gd_scene load_steps=15 format=3 uid="uid://b5e0u6eqdxy"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_lw68q"]
+[ext_resource type="PackedScene" uid="uid://dp3ijl3pm2i52" path="res://player.tscn" id="1_nno32"]
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_gul8d"]
+[ext_resource type="Texture2D" uid="uid://5u66futhhbq4" path="res://flappy-bird-assets/sprites/background-day.png" id="2_mvew7"]
+[ext_resource type="Texture2D" uid="uid://bp8ylueanynyk" path="res://flappy-bird-assets/sprites/base.png" id="3_vf27q"]
+[ext_resource type="FontFile" uid="uid://npefoxuc8g1y" path="res://flappy-bird-assets/Flappy-Bird.ttf" id="6_widqv"]
+[ext_resource type="Texture2D" uid="uid://b8hvf1xuuq5gt" path="res://flappy-bird-assets/sprites/scoreboard.png" id="7_enk4b"]
+[ext_resource type="Script" path="res://Scoreboard.gd" id="8_kvdjs"]
+[ext_resource type="AudioStream" uid="uid://56hqn8cjc6pt" path="res://flappy-bird-assets/audio/wing.ogg" id="9_5kuue"]
+[ext_resource type="AudioStream" uid="uid://db7ft3swf1num" path="res://flappy-bird-assets/audio/hit.ogg" id="10_w48dp"]
+[ext_resource type="AudioStream" uid="uid://df0cmeeewfwuk" path="res://flappy-bird-assets/audio/point.ogg" id="11_tcv08"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cefbi"]
+size = Vector2(380, 70)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n4lei"]
+font = ExtResource("6_widqv")
+font_size = 45
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dcb08"]
+line_spacing = 1.0
+font = ExtResource("6_widqv")
+font_size = 150
+font_color = Color(1, 1, 1, 0.952941)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.847059)
+shadow_offset = Vector2(5, 1)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_lw68q")
+
+[node name="CrearObstaculosTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_nno32")]
+position = Vector2(181, 325)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_gul8d")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-12, -12)
+scale = Vector2(0.919809, 0.939742)
+motion_mirroring = Vector2(405, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(217.436, 350.096)
+scale = Vector2(1.47978, 1.36772)
+texture = ExtResource("2_mvew7")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.00942, 1)
+motion_mirroring = Vector2(375.005, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(185.255, 589)
+scale = Vector2(1.12425, 1.1466)
+texture = ExtResource("3_vf27q")
+
+[node name="techo" type="StaticBody2D" parent="." groups=["obstaculo"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="techo"]
+position = Vector2(177, -29)
+shape = SubResource("RectangleShape2D_cefbi")
+
+[node name="piso" type="StaticBody2D" parent="." groups=["obstaculo"]]
+z_index = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="piso" groups=["obstaculo"]]
+position = Vector2(178, 569)
+shape = SubResource("RectangleShape2D_cefbi")
+
+[node name="scoreLabel2" type="Label" parent="."]
+visible = false
+z_index = 3
+offset_left = 261.0
+offset_top = 301.0
+offset_right = 286.0
+offset_bottom = 341.0
+text = "0"
+label_settings = SubResource("LabelSettings_n4lei")
+
+[node name="scoreLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 146.0
+offset_top = 29.0
+offset_right = 198.0
+offset_bottom = 147.0
+text = "0"
+label_settings = SubResource("LabelSettings_dcb08")
+
+[node name="Scoreboard" type="Sprite2D" parent="."]
+process_mode = 3
+visible = false
+z_index = 2
+position = Vector2(179.5, 352)
+scale = Vector2(1.23305, 1.22143)
+texture = ExtResource("7_enk4b")
+script = ExtResource("8_kvdjs")
+
+[node name="plapping" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_5kuue")
+
+[node name="die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_w48dp")
+
+[node name="pontsxd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_tcv08")
+
+[node name="scoreLabel3" type="Label" parent="."]
+visible = false
+z_index = 3
+offset_left = 262.0
+offset_top = 355.0
+offset_right = 287.0
+offset_bottom = 395.0
+text = "0"
+label_settings = SubResource("LabelSettings_n4lei")
+
+[connection signal="timeout" from="CrearObstaculosTimer" to="." method="_on_crear_obstaculos_timer_timeout"]

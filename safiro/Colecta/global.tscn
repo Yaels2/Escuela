@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ucey6n7cypm3"]
+
+[ext_resource type="Script" path="res://Global.gd" id="1_wn4pi"]
+[ext_resource type="AudioStream" uid="uid://di2p4xwb1340l" path="res://Assets_PixelAdventure/Sounds/confirmation_002.ogg" id="2_nmn85"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_wn4pi")
+
+[node name="FrutaSonido" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_nmn85")

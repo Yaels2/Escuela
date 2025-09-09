@@ -1,0 +1,9 @@
+{
+    "checksums.autoFix": true,
+    "doki.wallpaper.path": "C:\\Users\\yaels\\Downloads\\multimedia\\back.png",
+    "doki.sticker.path": "C:\\Users\\yaels\\Downloads\\multimedia\\nier.png",
+    "doki.background.anchor": "z-index: 100; background-position: 10% 0% 10%;",
+    "vscode_custom_css.imports": [
+        
+    ]
+}

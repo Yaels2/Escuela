@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0s63ln1h5l30"]
+
+[ext_resource type="PackedScene" uid="uid://drndkp7ihnakn" path="res://Personajes/personaje.tscn" id="1_osnhg"]
+[ext_resource type="Texture2D" uid="uid://qh4778c8molj" path="res://Assets_PixelAdventure/Enemies/AngryPig/angryPig.png" id="2_0r3fs"]
+[ext_resource type="Script" path="res://Personajes/enemigo_cerdo.gd" id="2_dahrr"]
+[ext_resource type="PackedScene" uid="uid://coskl5gtyibj6" path="res://Trampas/dm_gplayer.tscn" id="4_kniuo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5afb"]
+size = Vector2(31, 28)
+
+[node name="EnemigoCerdo" groups=["Enemigos"] instance=ExtResource("1_osnhg")]
+position = Vector2(-1, 0)
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("2_dahrr")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_0r3fs")
+hframes = 9
+vframes = 6
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_s5afb")
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "walk"
+
+[node name="Raycast" type="Node2D" parent="." index="3"]
+
+[node name="RayCastSuelo" type="RayCast2D" parent="Raycast" index="0"]
+target_position = Vector2(0, 20)
+collision_mask = 6
+
+[node name="RayCastMuro" type="RayCast2D" parent="Raycast" index="1"]
+target_position = Vector2(-20, 0)
+collision_mask = 6
+
+[node name="RayTimer" type="Timer" parent="Raycast" index="2"]
+one_shot = true
+
+[node name="RayCastDetector" type="RayCast2D" parent="." index="4"]
+target_position = Vector2(-50, 0)
+
+[node name="saltoen" type="Timer" parent="." index="5"]
+one_shot = true
+
+[node name="DMGplayer" parent="." index="6" instance=ExtResource("4_kniuo")]
+collision_layer = 6
+
+[connection signal="timeout" from="Raycast/RayTimer" to="." method="_on_ray_timer_timeout"]
+[connection signal="mueroUnU" from="DMGplayer" to="." method="_on_dm_gplayer_muero_un_u"]

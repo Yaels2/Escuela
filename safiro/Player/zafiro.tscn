@@ -1,0 +1,308 @@
+[gd_scene load_steps=29 format=3 uid="uid://q2tyh7tjhvsf"]
+
+[ext_resource type="Script" path="res://Player/zafiro.gd" id="1_os5j7"]
+[ext_resource type="Texture2D" uid="uid://cdrkx8qn6n76l" path="res://Assets_PixelAdventure/Main Characters/Ninja Frog.png" id="1_pb7fy"]
+[ext_resource type="Script" path="res://Player/Starmachine/stateMachine.gd" id="2_edjmd"]
+[ext_resource type="Script" path="res://Player/Camera2D.gd" id="3_7phwq"]
+[ext_resource type="Script" path="res://Player/Idle.gd" id="3_ngjfb"]
+[ext_resource type="Script" path="res://Player/Moving.gd" id="4_1pfnp"]
+[ext_resource type="LabelSettings" uid="uid://bqbui7qtvdvtl" path="res://Player/GUITEXT.tres" id="4_la3q1"]
+[ext_resource type="Script" path="res://Player/enAire.gd" id="5_k3bjx"]
+[ext_resource type="Script" path="res://Player/takeDamage.gd" id="6_vpxex"]
+[ext_resource type="AudioStream" uid="uid://bk01bmd5p2v58" path="res://Assets_PixelAdventure/Sounds/Hit.ogg" id="7_bm8js"]
+[ext_resource type="Script" path="res://Player/wallSlide.gd" id="7_mbmja"]
+[ext_resource type="Script" path="res://Player/WallJump.gd" id="8_ftnfj"]
+[ext_resource type="AudioStream" uid="uid://ba2hxqf376lg" path="res://Assets_PixelAdventure/Sounds/Jump.ogg" id="8_ndhff"]
+[ext_resource type="Script" path="res://Player/Dash.gd" id="9_7ghad"]
+[ext_resource type="Texture2D" uid="uid://ckaore37h130l" path="res://Assets_PixelAdventure/Menu/UI/lifebar-1.png" id="11_d6k8j"]
+[ext_resource type="Texture2D" uid="uid://53mh0rvj54b1" path="res://Assets_PixelAdventure/Menu/UI/lifebar-2.png" id="12_d3xar"]
+[ext_resource type="Script" path="res://Player/TextureProgressBar.gd" id="13_5ra5e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqt3x"]
+size = Vector2(22, 27)
+
+[sub_resource type="Animation" id="Animation_xl7pm"]
+resource_name = "Jump"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [23]
+}
+
+[sub_resource type="Animation" id="Animation_haip7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_d7ldm"]
+resource_name = "dobleUnU"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 26, 27, 28, 29, 30]
+}
+
+[sub_resource type="Animation" id="Animation_lb3x1"]
+resource_name = "fall"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
+
+[sub_resource type="Animation" id="Animation_3j1hj"]
+resource_name = "hurt"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [36, 37, 38, 39, 40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_2xth2"]
+resource_name = "idle"
+length = 1.44
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_xa5m7"]
+resource_name = "walk"
+length = 1.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_c3ahf"]
+resource_name = "wallSlide"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [31, 32, 33]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y3def"]
+_data = {
+"Jump": SubResource("Animation_xl7pm"),
+"RESET": SubResource("Animation_haip7"),
+"dobleUnU": SubResource("Animation_d7ldm"),
+"fall": SubResource("Animation_lb3x1"),
+"hurt": SubResource("Animation_3j1hj"),
+"idle": SubResource("Animation_2xth2"),
+"walk": SubResource("Animation_xa5m7"),
+"wallSlide": SubResource("Animation_c3ahf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjrop"]
+size = Vector2(20, 25)
+
+[node name="zafiro" type="CharacterBody2D" groups=["AreaPlayer", "Player"]]
+position = Vector2(-1, 0)
+collision_mask = 6
+script = ExtResource("1_os5j7")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_edjmd")
+estado_inicial = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_ngjfb")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_1pfnp")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="enAire" type="Node" parent="StateMachine"]
+script = ExtResource("5_k3bjx")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/enAire"]
+wait_time = 0.2
+one_shot = true
+
+[node name="BufferJumpTimer" type="Timer" parent="StateMachine/enAire"]
+wait_time = 0.1
+one_shot = true
+
+[node name="takeDamage" type="Node" parent="StateMachine"]
+script = ExtResource("6_vpxex")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="wallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("7_mbmja")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="WallJump" type="Node" parent="StateMachine"]
+script = ExtResource("8_ftnfj")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("9_7ghad")
+anim_player_path = NodePath("../../AnimationPlayer")
+
+[node name="TimerDash" type="Timer" parent="StateMachine/Dash"]
+wait_time = 0.3
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 1.123)
+texture = ExtResource("1_pb7fy")
+hframes = 11
+vframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 4.5)
+shape = SubResource("RectangleShape2D_iqt3x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y3def")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_7phwq")
+
+[node name="PlayerGUI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerGUI"]
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 77.0
+offset_bottom = 46.0
+
+[node name="FrutasLabel2" type="Label" parent="PlayerGUI/HBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "Frutas:"
+label_settings = ExtResource("4_la3q1")
+
+[node name="FrutasLabel" type="Label" parent="PlayerGUI/HBoxContainer/FrutasLabel2"]
+layout_mode = 2
+offset_left = 74.0
+offset_right = 75.0
+offset_bottom = 20.0
+label_settings = ExtResource("4_la3q1")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PlayerGUI" node_paths=PackedStringArray("safiro")]
+offset_left = -1.0
+offset_top = -7.0
+offset_right = 95.0
+offset_bottom = 33.0
+texture_under = ExtResource("11_d6k8j")
+texture_progress = ExtResource("12_d3xar")
+script = ExtResource("13_5ra5e")
+safiro = NodePath("../..")
+
+[node name="RaycastDMG" type="Node2D" parent="."]
+visible = false
+
+[node name="RayCast2D" type="RayCast2D" parent="RaycastDMG"]
+position = Vector2(1, 0)
+target_position = Vector2(0, 23)
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="RaycastDMG"]
+position = Vector2(8, 0)
+target_position = Vector2(0, 23)
+collision_mask = 2
+
+[node name="RayCast2D3" type="RayCast2D" parent="RaycastDMG"]
+position = Vector2(-6, 0)
+target_position = Vector2(0, 23)
+collision_mask = 2
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_bm8js")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ndhff")
+
+[node name="LabelState" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -39.0
+offset_right = 22.0
+offset_bottom = -16.0
+
+[node name="RecibirDano" type="Area2D" parent="." groups=["AreaPlayer"]]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RecibirDano"]
+visible = false
+position = Vector2(1, 4.5)
+shape = SubResource("RectangleShape2D_tjrop")
+
+[connection signal="timeout" from="StateMachine/Dash/TimerDash" to="StateMachine/Dash" method="_on_timer_dash_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/takeDamage" method="_on_animation_player_animation_finished"]

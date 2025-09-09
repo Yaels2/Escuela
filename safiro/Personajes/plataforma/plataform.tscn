@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://beqsvbcdl1se7"]
+
+[ext_resource type="Texture2D" uid="uid://i6s3gmq6sfr4" path="res://Assets_PixelAdventure/Traps/Platforms/Brown Off.png" id="1_l3sa7"]
+[ext_resource type="Script" path="res://Personajes/plataforma/plataform.gd" id="1_m4i1e"]
+
+[sub_resource type="Curve2D" id="Curve2D_tnmi0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 57, 1, 0, 0, 0, 0, 171, 3, 0, 0, 0, 0, 58, 2)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33hlk"]
+size = Vector2(48, 7)
+
+[node name="Plataform" type="Path2D"]
+curve = SubResource("Curve2D_tnmi0")
+script = ExtResource("1_m4i1e")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(128.193, 2.62117)
+rotation = -3.13274
+progress = 156.829
+
+[node name="Plataformcara" type="CharacterBody2D" parent="."]
+position = Vector2(131.435, 2.64987)
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Plataformcara"]
+scale = Vector2(1.46875, 1.125)
+texture = ExtResource("1_l3sa7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plataformcara"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_33hlk")
